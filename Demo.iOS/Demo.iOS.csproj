@@ -101,6 +101,12 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Wapps">
+      <HintPath>..\packages\Wapps.0.1.6\lib\portable-win+net45+wp8+win8+wpa81\Wapps.dll</HintPath>
+    </Reference>
+    <Reference Include="Wapps.Forms.IOS">
+      <HintPath>..\packages\Wapps.Forms.0.1.6\lib\Xamarin.iOS10\Wapps.Forms.iOS\Wapps.Forms.IOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Demo.csproj">
@@ -111,17 +117,9 @@
       <Project>{E41D1DD8-0639-4060-8973-31E449A695B7}</Project>
       <Name>Demo.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wapps\Wapps.csproj">
-      <Project>{A032B7D8-37A1-4EE6-89CA-0BAB14831200}</Project>
-      <Name>Wapps</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Wapps.Forms\Wapps.Forms.csproj">
       <Project>{B14A6EF6-A08D-4179-BD86-6DE410C6DEE5}</Project>
       <Name>Wapps.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wapps.Forms.IOS\Wapps.Forms.IOS.csproj">
-      <Project>{BD5AC33A-0037-4AC4-AF59-2985CE3FA099}</Project>
-      <Name>Wapps.Forms.IOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
