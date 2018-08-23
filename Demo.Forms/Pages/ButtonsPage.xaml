@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-	xmlns:Wapps="clr-namespace:Wapps.Forms.Controls;assembly=Wapps.Forms"
-	x:Class="Demo.ButtonsPage">
-	<ContentPage.Content>
-		<Wapps:WButton BackgroundColor="Red" HorizontalOptions="Center" VerticalOptions="Center" Text="Sample Button with Padding" Padding="35" TextColor="White" />
-	</ContentPage.Content>
-</ContentPage>

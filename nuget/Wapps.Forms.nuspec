@@ -1,0 +1,44 @@
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata minClientVersion="2.8.3">
+		<id>Wapps.Forms</id>
+		<version>0.2.13</version>
+		<title>Wapps.Forms - Extension for Xamarin.Forms</title>
+		<authors>Javier Holcman</authors>
+		<owners>Javier Holcman</owners>
+		<iconUrl>http://www.wappsfactor.com/shared/logo_bw.png</iconUrl>
+		<licenseUrl>https://github.com/javiholcman/Wapps.Forms.Map/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/javiholcman/Wapps</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Wapps.Forms - Extension for Xamarin.Forms.</description>
+		<summary></summary>
+		<tags>xamarin, netstandard, netcore, plugin for xamarin.forms, android, xamarin.forms, ios, button, picker</tags>
+		<dependencies>
+			<group targetFramework="netstandard2.0">
+				<dependency id="Wapps" version="0.2.2" />
+				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
+				<dependency id="sqlite-net-pcl" version="1.4.118" />				
+			</group>
+			<group targetFramework="MonoAndroid">
+				<dependency id="Wapps" version="0.2.2" />
+				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
+			</group>
+			<group targetFramework="Xamarin.iOS10">
+				<dependency id="Wapps" version="0.2.2" />
+				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<!--Forms-->
+		<file src="lib/netstandard2.0/Wapps.Forms.dll" target="lib/netstandard2.0/Wapps.Forms.dll" />
+		
+		<!--Xamarin.Android-->
+		<file src="lib/netstandard2.0/Wapps.Forms.dll" target="lib/MonoAndroid10/Wapps.Forms.dll" />		
+		<file src="lib/Wapps.Forms.Droid.dll" target="lib/MonoAndroid10/Wapps.Forms.Droid.dll" />
+
+		<!--Xamarin.iOS-->
+		<file src="lib/netstandard2.0/Wapps.Forms.dll" target="lib/Xamarin.iOS10/Wapps.Forms.dll" />
+		<file src="lib/Wapps.Forms.iOS.dll" target="lib/Xamarin.iOS10/Wapps.Forms.iOS.dll" />
+    
+	</files>
+</package>

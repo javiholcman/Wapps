@@ -28,6 +28,7 @@ using Xamarin.Forms.Platform.Android;
 using Wapps.Forms.Controls.Droid;
 using Wapps.Forms;
 using Wapps.Forms.Controls;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(WCheckBox), typeof(WCheckBoxRenderer))]
 
@@ -38,13 +39,17 @@ namespace Wapps.Forms.Controls.Droid
     /// </summary>
 	public class WCheckBoxRenderer : ViewRenderer<WCheckBox, Android.Widget.CheckBox>
     {
-        private ColorStateList defaultTextColor;
-        
+        ColorStateList defaultTextColor;
+
+        protected WCheckBoxRenderer(Context context) : base(context)
+        {
+        }
+
         /// <summary>
         /// Called when [element changed].
         /// </summary>
         /// <param name="e">The e.</param>
-		protected override void OnElementChanged(ElementChangedEventArgs<WCheckBox> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<WCheckBox> e)
         {
             base.OnElementChanged(e);
 
@@ -61,7 +66,7 @@ namespace Wapps.Forms.Controls.Droid
             Control.Checked = e.NewElement.Checked;
             UpdateTextColor();
 
-			if (e.NewElement.FontSize > 0)
+            if (e.NewElement.FontSize > 0)
             {
                 Control.TextSize = (float)e.NewElement.FontSize;
             }

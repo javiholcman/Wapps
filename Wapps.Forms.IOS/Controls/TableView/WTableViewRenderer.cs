@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreGraphics;
+using UIKit;
 using Wapps.Forms.Controls;
 using Wapps.Forms.IOS.Controls;
 using Xamarin.Forms;
@@ -26,6 +27,11 @@ namespace Wapps.Forms.IOS.Controls
                 SetSeparatorColor(view);
                 SetSelectionEnabled(view);
                 view.ScrollToTopDelegate = ScrollToTop;
+                Control.TableFooterView = new UIView();
+                Control.SectionHeaderHeight = UIKit.UITableView.AutomaticDimension;
+                Control.SectionFooterHeight = UIKit.UITableView.AutomaticDimension;
+                Control.EstimatedSectionHeaderHeight = 0;
+                Control.EstimatedSectionFooterHeight = 0;
             }
 
             if (e.OldElement != null)

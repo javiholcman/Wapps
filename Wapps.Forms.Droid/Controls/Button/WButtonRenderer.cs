@@ -6,90 +6,93 @@ using Android.Text.Method;
 using Android.Util;
 using Android.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 using Color = Xamarin.Forms.Color;
 using Wapps.Forms.Controls;
 using Wapps.Forms.Controls.Droid;
 using Wapps.Forms.Droid;
 using Android.Views.InputMethods;
+using Android.Content;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(WButton), typeof(WButtonRenderer))]
 
 namespace Wapps.Forms.Controls.Droid
 {
-	/// <summary>
-	/// Class WEntryRenderer.
-	/// </summary>
-	public class WButtonRenderer : ButtonRenderer
-	{
-		
-		/// <summary>
-		/// Called when [element changed].
-		/// </summary>
-		/// <param name="e">The e.</param>
-		protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
-		{
-			base.OnElementChanged(e);
+    /// <summary>
+    /// Class WEntryRenderer.
+    /// </summary>
+    public class WButtonRenderer : ButtonRenderer
+    {
+        public WButtonRenderer(Context ctx) : base(ctx)
+        {
 
-			var view = (WButton)e.NewElement;
+        }
 
-			if (view != null)
-			{
-				SetPadding(view);
-				SetHorizontalTextAlignment(view);
-				if (view.BorderRadius == 0)
-				{
-					Control.SetBackgroundColor(Color.Transparent.ToAndroid());
-				}
-			}
-		}
+        /// <summary>
+        /// Called when [element changed].
+        /// </summary>
+        /// <param name="e">The e.</param>
+        protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Button> e)
+        {
+            base.OnElementChanged(e);
 
-		/// <summary>
-		/// Handles the <see cref="E:ElementPropertyChanged" /> event.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+            var view = (WButton)e.NewElement;
 
-			var view = (WButton)Element;
+            if (view != null)
+            {
+                SetPadding(view);
+                SetHorizontalTextAlignment(view);
+                if (view.CornerRadius <= 0)
+                    Control.SetBackgroundColor(Color.Transparent.ToAndroid());
+            }
+        }
 
-			if (e.PropertyName == WButton.PaddingProperty.PropertyName)
-				SetPadding(view);
-			else if (e.PropertyName == WButton.HorizontalTextAlignmentProperty.PropertyName)
-				SetHorizontalTextAlignment(view);
-		}
+        /// <summary>
+        /// Handles the <see cref="E:ElementPropertyChanged" /> event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-		void SetPadding(WButton view)
-		{
-			var pxLeft = FDroidUtils.Dp((int)view.Padding.Left);
-			var pxTop = FDroidUtils.Dp((int)view.Padding.Top);
-			var pxRight = FDroidUtils.Dp((int)view.Padding.Right);
-			var pxBottom = FDroidUtils.Dp((int)view.Padding.Bottom);
+            var view = (WButton)Element;
 
-			Control.SetPadding(pxLeft, pxTop, pxRight, pxBottom);
-		}
+            if (e.PropertyName == WButton.PaddingProperty.PropertyName)
+                SetPadding(view);
+            else if (e.PropertyName == WButton.HorizontalTextAlignmentProperty.PropertyName)
+                SetHorizontalTextAlignment(view);
+        }
 
-		void SetHorizontalTextAlignment(WButton view)
-		{
-			// I need to implement because I will override the vertical align.
-			switch (view.HorizontalTextAlignment)
-			{
-				case Xamarin.Forms.TextAlignment.Start:
-					Control.Gravity = GravityFlags.Left | GravityFlags.CenterVertical;
-					break;
+        void SetPadding(WButton view)
+        {
+            var pxLeft = FDroidUtils.Dp((int)view.Padding.Left);
+            var pxTop = FDroidUtils.Dp((int)view.Padding.Top);
+            var pxRight = FDroidUtils.Dp((int)view.Padding.Right);
+            var pxBottom = FDroidUtils.Dp((int)view.Padding.Bottom);
 
-				case Xamarin.Forms.TextAlignment.Center:
-					Control.Gravity = GravityFlags.Center | GravityFlags.CenterVertical;
-					break;
+            Control.SetPadding(pxLeft, pxTop, pxRight, pxBottom);
+        }
 
-				case Xamarin.Forms.TextAlignment.End:
-					Control.Gravity = GravityFlags.Right | GravityFlags.CenterVertical;
-					break;
-			}
-		}
+        void SetHorizontalTextAlignment(WButton view)
+        {
+            // I need to implement because I will override the vertical align.
+            switch (view.HorizontalTextAlignment)
+            {
+                case Xamarin.Forms.TextAlignment.Start:
+                    Control.Gravity = GravityFlags.Left | GravityFlags.CenterVertical;
+                    break;
 
-	}
+                case Xamarin.Forms.TextAlignment.Center:
+                    Control.Gravity = GravityFlags.Center | GravityFlags.CenterVertical;
+                    break;
+
+                case Xamarin.Forms.TextAlignment.End:
+                    Control.Gravity = GravityFlags.Right | GravityFlags.CenterVertical;
+                    break;
+            }
+        }
+
+    }
 }
 

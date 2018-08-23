@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Wapps.Validations;
-using Wapps.ViewModels.Results;
 
-namespace Wapps.ViewModels
+namespace Wapps.Core
 {
     public abstract class Field : INotifyPropertyChanged
     {
@@ -23,7 +21,7 @@ namespace Wapps.ViewModels
                 {
                     _value = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
-                    ValueChanged?.Invoke(_value, null);
+                    ValueChanged?.Invoke(this, null);
                 }
             }
         }
@@ -50,7 +48,22 @@ namespace Wapps.ViewModels
         /// Gets or sets the options.
         /// </summary>
         /// <value>The options.</value>
-        public List<string> Options { get; set; }
+        List<FieldOption> _options;
+        public List<FieldOption> Options
+        {
+            get
+            {
+                return _options;
+            }
+            set
+            {
+                if (_options != value)
+                {
+                    _options = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Options"));
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the validation result.
@@ -125,6 +138,15 @@ namespace Wapps.ViewModels
             Reseted?.Invoke(this, null);
             ValidationResult = null;
         }
+
+        public static List<FieldOption> QuickOptions(params string[] arr)
+        {
+            var options = new List<FieldOption>();
+            foreach (var val in arr)
+                options.Add(new FieldOption() { Text = val });
+
+            return options;
+        }
     }
 
     public delegate ViewModelResult ValidationDelegate(Field field);
@@ -143,4 +165,5 @@ namespace Wapps.ViewModels
             }
         }
     }
+
 }

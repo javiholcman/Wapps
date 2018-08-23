@@ -3,62 +3,62 @@ using Xamarin.Forms;
 
 namespace Wapps.Forms.Controls
 {
-	public class WTableView : TableView
-	{
-		#region Property: SeparatorColor
+    public class WTableView : TableView
+    {
+        #region Property: SeparatorColor
 
-		/// <summary>
-		/// The font property
-		/// </summary>
-		public static readonly BindableProperty SeparatorColorProperty = BindableProperty.Create("SeparatorColor", typeof(Color), typeof(WTableView), Color.Silver);
+        /// <summary>
+        /// The font property
+        /// </summary>
+        public static readonly BindableProperty SeparatorColorProperty = BindableProperty.Create("SeparatorColor", typeof(Color), typeof(WTableView), Color.Silver);
 
-		/// <summary>
-		/// Gets or sets the SeparatorColor
-		/// </summary>
-		public Color SeparatorColor
-		{
-			get { return (Color)GetValue(SeparatorColorProperty); }
-			set { SetValue(SeparatorColorProperty, value); }
-		}
+        /// <summary>
+        /// Gets or sets the SeparatorColor
+        /// </summary>
+        public Color SeparatorColor
+        {
+            get { return (Color)GetValue(SeparatorColorProperty); }
+            set { SetValue(SeparatorColorProperty, value); }
+        }
 
-		#endregion
+        #endregion
 
-		#region Property: SelectionEnabled
+        #region Property: SelectionEnabled
 
-		/// <summary>
-		/// The font property
-		/// </summary>
-		public static readonly BindableProperty SelectionEnabledProperty = BindableProperty.Create("SelectionEnabled", typeof(bool), typeof(WTableView), true);
+        /// <summary>
+        /// The font property
+        /// </summary>
+        public static readonly BindableProperty SelectionEnabledProperty = BindableProperty.Create("SelectionEnabled", typeof(bool), typeof(WTableView), true);
 
-		/// <summary>
-		/// Gets or sets the SeparatorColor
-		/// </summary>
-		public bool SelectionEnabled
-		{
-			get { return (bool)GetValue(SelectionEnabledProperty); }
-			set { SetValue(SelectionEnabledProperty, value); }
-		}
+        /// <summary>
+        /// Gets or sets the SeparatorColor
+        /// </summary>
+        public bool SelectionEnabled
+        {
+            get { return (bool)GetValue(SelectionEnabledProperty); }
+            set { SetValue(SelectionEnabledProperty, value); }
+        }
 
-		#endregion
+        #endregion
 
-		#region Method: ScrollToTop
+        #region Method: ScrollToTop
 
-		/// <summary>
-		/// Must be used just by renderers.
-		/// </summary>
-		/// <value>The scroll to top delegate.</value>
-		public Action ScrollToTopDelegate { get; set; }
+        /// <summary>
+        /// Must be used just by renderers.
+        /// </summary>
+        /// <value>The scroll to top delegate.</value>
+        public Action ScrollToTopDelegate { get; set; }
 
-		public void ScrollToTop()
-		{
-			ScrollToTopDelegate?.Invoke();
-		}
+        public void ScrollToTop()
+        {
+            ScrollToTopDelegate?.Invoke();
+        }
 
-		#endregion
+        #endregion
 
-		public WTableView()
-		{
-			
-		}
-	}
+        public WTableView()
+        {
+
+        }
+    }
 }

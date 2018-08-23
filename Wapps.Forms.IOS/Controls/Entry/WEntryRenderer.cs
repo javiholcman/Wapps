@@ -12,128 +12,96 @@ using Wapps.Forms.Controls;
 
 namespace Wapps.Forms.IOS.Controls
 {
-	/// <summary>
-	/// A renderer for the WEntry control.
-	/// </summary>
-	public class WEntryRenderer : EntryRenderer
-	{
-		
-		/// <summary>
-		/// The on element changed callback.
-		/// </summary>
-		/// <param name="e">The event arguments.</param>
-		protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<Entry> e)
-		{
-			base.OnElementChanged(e);
+    /// <summary>
+    /// A renderer for the WEntry control.
+    /// </summary>
+    public class WEntryRenderer : EntryRenderer
+    {
 
-			var view = e.NewElement as WEntry;
+        /// <summary>
+        /// The on element changed callback.
+        /// </summary>
+        /// <param name="e">The event arguments.</param>
+        protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<Entry> e)
+        {
+            base.OnElementChanged(e);
 
-			if (view != null)
-			{
-				SetFont (view);
-				SetBorder (view);
-				SetMaxLength (view);
-				SetSuggestionsBarVisibleProperty(view);
-				SetReturnKey(view);
-			}
-		}
+            var view = e.NewElement as WEntry;
 
-		/// <summary>
-		/// The on element property changed callback
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+            if (view != null)
+            {
+                SetBorder(view);
+                SetSuggestionsBarVisibleProperty(view);
+                SetReturnKey(view);
+            }
+        }
 
-			var view = (WEntry)Element;
+        /// <summary>
+        /// The on element property changed callback
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == WEntry.FontProperty.PropertyName)
-				SetFont(view);
-			else if (e.PropertyName == WEntry.HasBorderProperty.PropertyName)
-				SetBorder(view);
-			else if (e.PropertyName == WEntry.SuggestionsBarVisibleProperty.PropertyName)
-				SetSuggestionsBarVisibleProperty(view);
-			else if (e.PropertyName == WEntry.ReturnKeyTypeProperty.PropertyName) 
-				SetReturnKey(view);
-		}
+            var view = (WEntry)Element;
 
-		void SetSuggestionsBarVisibleProperty(WEntry view)
-		{
-			if (!view.SuggestionsBarVisible)
-			{
-				Control.AutocorrectionType = UITextAutocorrectionType.No;
-			}
-			else 
-			{
-				Control.AutocorrectionType = UITextAutocorrectionType.Default;
-			}
-		}
+            if (e.PropertyName == WEntry.HasBorderProperty.PropertyName)
+                SetBorder(view);
+            else if (e.PropertyName == WEntry.SuggestionsBarVisibleProperty.PropertyName)
+                SetSuggestionsBarVisibleProperty(view);
+            else if (e.PropertyName == WEntry.ReturnKeyTypeProperty.PropertyName)
+                SetReturnKey(view);
+        }
 
-		void SetFont(WEntry view)
-		{
-			var fontSize = (int)view.Font.FontSize;
-			if (fontSize == 0)
-				fontSize = 15;
+        void SetSuggestionsBarVisibleProperty(WEntry view)
+        {
+            if (!view.SuggestionsBarVisible)
+            {
+                Control.AutocorrectionType = UITextAutocorrectionType.No;
+            }
+            else
+            {
+                Control.AutocorrectionType = UITextAutocorrectionType.Default;
+            }
+        }
 
-			UIFont uiFont;
-			if (view.Font != Font.Default && (uiFont = view.Font.ToUIFont()) != null)
-				Control.Font = uiFont.WithSize(fontSize);
-			else if (view.Font == Font.Default)
-			{
-				Control.Font = UIFont.SystemFontOfSize((nfloat)fontSize);
-			}
-		}
+        void SetBorder(WEntry view)
+        {
+            Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
+        }
 
-		void SetBorder(WEntry view)
-		{
-			Control.BorderStyle = view.HasBorder ? UITextBorderStyle.RoundedRect : UITextBorderStyle.None;
-		}
+        void SetReturnKey(WEntry view)
+        {
+            Control.ReturnKeyType = view.ReturnKeyType.GetValueFromDescription();
+        }
 
-		void SetMaxLength(WEntry view)
-		{
-			Control.ShouldChangeCharacters = (textField, range, replacementString) =>
-			{
-				var newLength = textField.Text.Length + replacementString.Length - range.Length;
-				return newLength <= view.MaxLength;
-			};
-		}
+    }
 
-		#region Property: ReturnKey 
-
-		void SetReturnKey(WEntry view)
-		{
-			Control.ReturnKeyType = view.ReturnKeyType.GetValueFromDescription();
-		}
-
-		#endregion
-
-	}
-
-	public static class EnumExtensions
-	{
-		public static UIReturnKeyType GetValueFromDescription(this WEntry.ReturnKeyTypes value)
-		{
-			var type = typeof(UIReturnKeyType);
-			if (!type.IsEnum) throw new InvalidOperationException();
-			foreach (var field in type.GetFields())
-			{
-				var attribute = Attribute.GetCustomAttribute(field,
-					typeof(DescriptionAttribute)) as DescriptionAttribute;
-				if (attribute != null)
-				{
-					if (attribute.Description == value.ToString())
-						return (UIReturnKeyType)field.GetValue(null);
-				}
-				else
-				{
-					if (field.Name == value.ToString())
-						return (UIReturnKeyType)field.GetValue(null);
-				}
-			}
-			return UIReturnKeyType.Default;
-			throw new NotSupportedException($"Not supported on iOS: {value}");
-		}
-	}
+    public static class EnumExtensions
+    {
+        public static UIReturnKeyType GetValueFromDescription(this WEntry.ReturnKeyTypes value)
+        {
+            var type = typeof(UIReturnKeyType);
+            if (!type.IsEnum) throw new InvalidOperationException();
+            foreach (var field in type.GetFields())
+            {
+                var attribute = Attribute.GetCustomAttribute(field,
+                    typeof(DescriptionAttribute)) as DescriptionAttribute;
+                if (attribute != null)
+                {
+                    if (attribute.Description == value.ToString())
+                        return (UIReturnKeyType)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == value.ToString())
+                        return (UIReturnKeyType)field.GetValue(null);
+                }
+            }
+            return UIReturnKeyType.Default;
+            throw new NotSupportedException($"Not supported on iOS: {value}");
+        }
+    }
 }

@@ -33,6 +33,7 @@ using Wapps.Forms.Controls;
 using Wapps.Forms.Controls.Droid;
 using Wapps.Forms.Droid;
 using Android.Views.InputMethods;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(WEntry), typeof(WEntryRenderer))]
 
@@ -43,7 +44,10 @@ namespace Wapps.Forms.Controls.Droid
     /// </summary>
     public class WEntryRenderer : EntryRenderer
     {
-      
+        public WEntryRenderer(Context context) : base(context)
+        {
+        }
+
         /// <summary>
         /// Called when [element changed].
         /// </summary>
@@ -52,18 +56,14 @@ namespace Wapps.Forms.Controls.Droid
         {
             base.OnElementChanged(e);
 
-			var view = (WEntry)e.NewElement;
+            var view = (WEntry)e.NewElement;
 
-			if (view != null)
-			{
-				SetDefaultValues(view);
-				SetFont(view);
-				SetHasBorder(view);
-				SetMaxLength(view);
-				SetSuggestionsBarVisibleProperty(view);
-				SetReturnKey(view);
-				SetHorizontalTextAlignment(view);
-			}
+            if (view != null)
+            {
+                SetHasBorder(view);
+                SetSuggestionsBarVisibleProperty(view);
+                SetReturnKey(view);
+            }
         }
 
         /// <summary>
@@ -73,115 +73,70 @@ namespace Wapps.Forms.Controls.Droid
         /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-			base.OnElementPropertyChanged(sender, e);
+            base.OnElementPropertyChanged(sender, e);
 
             var view = (WEntry)Element;
 
-			if (e.PropertyName == WEntry.FontProperty.PropertyName)
-				SetFont(view);
-			else if (e.PropertyName == WEntry.SuggestionsBarVisibleProperty.PropertyName)
-				SetSuggestionsBarVisibleProperty(view);
-			else if (e.PropertyName == WEntry.HasBorderProperty.PropertyName)
-				SetHasBorder(view);
-			else if (e.PropertyName == WEntry.MaxLengthProperty.PropertyName)
-				SetMaxLength(view);
-			else if (e.PropertyName == WEntry.ReturnKeyTypeProperty.PropertyName)
-				SetReturnKey(view);
-			else if (e.PropertyName == Entry.HorizontalTextAlignmentProperty.PropertyName)
-				SetHorizontalTextAlignment(view);
+            if (e.PropertyName == WEntry.SuggestionsBarVisibleProperty.PropertyName)
+                SetSuggestionsBarVisibleProperty(view);
+            else if (e.PropertyName == WEntry.HasBorderProperty.PropertyName)
+                SetHasBorder(view);
+            else if (e.PropertyName == WEntry.ReturnKeyTypeProperty.PropertyName)
+                SetReturnKey(view);
         }
 
-		void SetDefaultValues(WEntry view)
-		{
-			Control.Gravity = GravityFlags.CenterVertical;
-		}
-
-        void SetFont(WEntry view)
+        void SetHasBorder(WEntry view)
         {
-            if (view.Font != Font.Default) 
+            if (!view.HasBorder)
             {
-                Control.TextSize = view.Font.ToScaledPixel();
-                Control.Typeface = view.Font.ToExtendedTypeface(Context);
+                Control.SetBackgroundColor(Color.Transparent.ToAndroid());
+                Control.SetPadding(0, 0, 0, 0);
             }
         }
 
-		void SetHorizontalTextAlignment(WEntry view)
-		{
-			// I need to implement because I will override the vertical align.
-			switch (view.HorizontalTextAlignment)
-			{
-				case Xamarin.Forms.TextAlignment.Start:
-					Control.Gravity = GravityFlags.Left | GravityFlags.CenterVertical;
-					break;
-
-				case Xamarin.Forms.TextAlignment.Center:
-					Control.Gravity = GravityFlags.Center | GravityFlags.CenterVertical;
-					break;
-
-				case Xamarin.Forms.TextAlignment.End:
-					Control.Gravity = GravityFlags.Right | GravityFlags.CenterVertical;
-					break;
-			}
-			//Control.Gravity = GravityFlags.CenterVertical;
-		}
-
-		void SetHasBorder(WEntry view)
-		{
-			if (!view.HasBorder)
-			{
-				Control.SetBackgroundColor(Color.Transparent.ToAndroid());
-				Control.SetPadding(0, 0, 0, 0);
-			}
-		}
-
-		void SetSuggestionsBarVisibleProperty(WEntry view)
-		{
-			if (!view.SuggestionsBarVisible)
-			{
-				Control.InputType = Control.InputType | InputTypes.TextFlagNoSuggestions;
-				Control.PrivateImeOptions = "nm";
-			}
-		}
-
-        void SetMaxLength(WEntry view)
+        void SetSuggestionsBarVisibleProperty(WEntry view)
         {
-            Control.SetFilters(new IInputFilter[] { new InputFilterLengthFilter(view.MaxLength) });
+            if (!view.SuggestionsBarVisible)
+            {
+                Control.InputType = Control.InputType | InputTypes.TextFlagNoSuggestions;
+                Control.PrivateImeOptions = "nm";
+            }
         }
 
-		void SetReturnKey(WEntry view)
-		{
-			Control.ImeOptions = view.ReturnKeyType.GetValueFromDescription();
-			// This is hackie ;-) / A Android-only bindable property should be added to the EntryExt class 
-			Control.SetImeActionLabel(view.ReturnKeyType.ToString(), Control.ImeOptions);
-		}
+        void SetReturnKey(WEntry view)
+        {
+            Control.ImeOptions = view.ReturnKeyType.GetValueFromDescription();
+            // This is hackie ;-) / A Android-only bindable property should be added to the EntryExt class 
+            Control.SetImeActionLabel(view.ReturnKeyType.ToString(), Control.ImeOptions);
+        }
     }
 
-	public static class EnumExtensions
-	{
-		public static ImeAction GetValueFromDescription(this WEntry.ReturnKeyTypes value)
-		{
-			return ImeAction.Done;
+    public static class EnumExtensions
+    {
+        public static ImeAction GetValueFromDescription(this WEntry.ReturnKeyTypes value)
+        {
+            return ImeAction.Done;
 
-			var type = typeof(ImeAction);
-			if (!type.IsEnum) throw new InvalidOperationException();
-			foreach (var field in type.GetFields())
-			{
-				var attribute = Attribute.GetCustomAttribute(field,
-					typeof(DescriptionAttribute)) as DescriptionAttribute;
-				if (attribute != null)
-				{
-					if (attribute.Description == value.ToString())
-						return (ImeAction)field.GetValue(null);
-				}
-				else
-				{
-					if (field.Name == value.ToString())
-						return (ImeAction)field.GetValue(null);
-				}
-			}
-			return ImeAction.Done;
-			//throw new NotSupportedException($"Not supported on Android: {value}");
-		}
-	}
+            var type = typeof(ImeAction);
+            if (!type.IsEnum) throw new InvalidOperationException();
+            foreach (var field in type.GetFields())
+            {
+                var attribute = Attribute.GetCustomAttribute(field,
+                    typeof(DescriptionAttribute)) as DescriptionAttribute;
+                if (attribute != null)
+                {
+                    if (attribute.Description == value.ToString())
+                        return (ImeAction)field.GetValue(null);
+                }
+                else
+                {
+                    if (field.Name == value.ToString())
+                        return (ImeAction)field.GetValue(null);
+                }
+            }
+            return ImeAction.Done;
+            //throw new NotSupportedException($"Not supported on Android: {value}");
+        }
+    }
 }
 

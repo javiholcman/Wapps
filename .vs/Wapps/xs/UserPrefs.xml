@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{BF5D5942-0A63-412E-AA08-274489DCA57D}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Wapps.Forms.Droid/Controls/Checkbox/WCheckBoxRenderer.cs">
+    <Files>
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WSwitchField.cs" Line="1" Column="1" />
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WMultiField.cs" Line="11" Column="38" />
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WPickerField.cs" Line="34" Column="10" />
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WCheckField.cs" Line="1" Column="1" />
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WDateField.cs" Line="5" Column="31" />
+      <File FileName="Wapps.Forms/Controls/Form/Fields/WEntryField.cs" Line="1" Column="1" />
+      <File FileName="Wapps.Forms/Controls/WEditor.cs" Line="10" Column="62" />
+      <File FileName="Wapps.Forms.IOS/Controls/Editor/WEditorRenderer.cs" Line="59" Column="10" />
+      <File FileName="Wapps.Forms.Droid/Controls/Checkbox/WCheckBoxRenderer.cs" Line="30" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Wapps" expanded="True">
+            <Node name="Libraries" expanded="True" selected="True" />
+            <Node name="Demo.iOS" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/Wapps/Documents/Internal/Wapps/Demo/MainPage.xaml.cs" relfile="Demo/MainPage.xaml.cs" line="24" column="1" />
+      <Breakpoint file="/Users/Wapps/Documents/Internal/Wapps/Demo/MainPage.xaml.cs" relfile="Demo/MainPage.xaml.cs" line="22" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Demo.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.F4D5C670-9EA0-4EBC-B8E5-F250CA4C0CE3" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

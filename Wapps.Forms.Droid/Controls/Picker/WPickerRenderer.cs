@@ -12,119 +12,102 @@ using Wapps.Forms.Controls;
 using Wapps.Forms.Controls.Droid;
 using Wapps.Forms.Droid;
 using Android.Views.InputMethods;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(WPicker), typeof(WPickerRenderer))]
 
 namespace Wapps.Forms.Controls.Droid
 {
-	/// <summary>
-	/// Class WEntryRenderer.
-	/// </summary>
-	public class WPickerRenderer : PickerRenderer
-	{
-		
-		/// <summary>
-		/// Called when [element changed].
-		/// </summary>
-		/// <param name="e">The e.</param>
-		protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
-		{
-			base.OnElementChanged(e);
+    /// <summary>
+    /// Class WEntryRenderer.
+    /// </summary>
+    public class WPickerRenderer : PickerRenderer
+    {
+        public WPickerRenderer(Context context) : base(context)
+        {
+        }
 
-			var view = (WPicker)e.NewElement;
+        /// <summary>
+        /// Called when [element changed].
+        /// </summary>
+        /// <param name="e">The e.</param>
+        protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
+        {
+            base.OnElementChanged(e);
 
-			if (view != null)
-			{
-				SetDefaultValues(view);
-				SetFont(view);
-				SetHasBorder(view);
-				SetHorizontalTextAlignment(view);
-				SetPlaceholder(view);
-				SetPlaceholderColor(view);
-			}
-		}
+            var view = (WPicker)e.NewElement;
 
-		/// <summary>
-		/// Handles the <see cref="E:ElementPropertyChanged" /> event.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+            if (view != null)
+            {
+                SetHasBorder(view);
+                SetHorizontalTextAlignment(view);
+                SetPlaceholder(view);
+                SetPlaceholderColor(view);
+            }
+        }
 
-			var view = (WPicker)Element;
+        /// <summary>
+        /// Handles the <see cref="E:ElementPropertyChanged" /> event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == WPicker.FontProperty.PropertyName)
-				SetFont(view);
-			else if (e.PropertyName == WPicker.HasBorderProperty.PropertyName)
-				SetHasBorder(view);
-			else if (e.PropertyName == WPicker.PlaceholderColorProperty.PropertyName)
-				SetPlaceholderColor(view);
-			else if (e.PropertyName == WPicker.PlaceholderProperty.PropertyName)
-				SetPlaceholder(view);
-			else if (e.PropertyName == Entry.HorizontalTextAlignmentProperty.PropertyName)
-				SetHorizontalTextAlignment(view);
-		}
+            var view = (WPicker)Element;
 
-		void SetDefaultValues(WPicker view)
-		{
-			Control.Gravity = GravityFlags.CenterVertical;
-			Control.InputType = Control.InputType | InputTypes.TextFlagNoSuggestions;
-		}
+            if (e.PropertyName == WPicker.HasBorderProperty.PropertyName)
+                SetHasBorder(view);
+            else if (e.PropertyName == WPicker.PlaceholderColorProperty.PropertyName)
+                SetPlaceholderColor(view);
+            else if (e.PropertyName == WPicker.PlaceholderProperty.PropertyName)
+                SetPlaceholder(view);
+            else if (e.PropertyName == Entry.HorizontalTextAlignmentProperty.PropertyName)
+                SetHorizontalTextAlignment(view);
+        }
 
-		void SetFont(WPicker view)
-		{
-			var font = view.Font.WithSize(view.FontSize);
-			Control.TextSize = font.ToScaledPixel();
+        void SetHorizontalTextAlignment(WPicker view)
+        {
+            // I need to implement because I will override the vertical align.
+            switch (view.HorizontalTextAlignment)
+            {
+                case Xamarin.Forms.TextAlignment.Start:
+                    Control.Gravity = GravityFlags.Left | GravityFlags.CenterVertical;
+                    break;
 
-			if (view.Font != Font.Default)
-			{
-				Control.Typeface = view.Font.ToExtendedTypeface(Context);
-			}
-		}
+                case Xamarin.Forms.TextAlignment.Center:
+                    Control.Gravity = GravityFlags.Center | GravityFlags.CenterVertical;
+                    break;
 
-		void SetHorizontalTextAlignment(WPicker view)
-		{
-			// I need to implement because I will override the vertical align.
-			switch (view.HorizontalTextAlignment)
-			{
-				case Xamarin.Forms.TextAlignment.Start:
-					Control.Gravity = GravityFlags.Left | GravityFlags.CenterVertical;
-					break;
+                case Xamarin.Forms.TextAlignment.End:
+                    Control.Gravity = GravityFlags.Right | GravityFlags.CenterVertical;
+                    break;
+            }
+        }
 
-				case Xamarin.Forms.TextAlignment.Center:
-					Control.Gravity = GravityFlags.Center | GravityFlags.CenterVertical;
-					break;
+        void SetPlaceholderColor(WPicker view)
+        {
+            if (view.PlaceholderColor != Color.Default)
+            {
+                Control.SetHintTextColor(view.PlaceholderColor.ToAndroid());
+            }
+        }
 
-				case Xamarin.Forms.TextAlignment.End:
-					Control.Gravity = GravityFlags.Right | GravityFlags.CenterVertical;
-					break;
-			}
-		}
+        void SetPlaceholder(WPicker view)
+        {
+            Control.Hint = view.Placeholder;
+        }
 
-		void SetPlaceholderColor(WPicker view)
-		{
-			if (view.PlaceholderColor != Color.Default)
-			{
-				Control.SetHintTextColor(view.PlaceholderColor.ToAndroid());
-			}
-		}
+        void SetHasBorder(WPicker view)
+        {
+            if (!view.HasBorder)
+            {
+                Control.SetBackgroundColor(Color.Transparent.ToAndroid());
+                Control.SetPadding(0, 0, 0, 0);
+            }
+        }
 
-		void SetPlaceholder(WPicker view)
-		{
-			Control.Hint = view.Placeholder;
-		}
-
-		void SetHasBorder(WPicker view)
-		{
-			if (!view.HasBorder)
-			{
-				Control.SetBackgroundColor(Color.Transparent.ToAndroid());
-				Control.SetPadding(0, 0, 0, 0);
-			}
-		}
-
-	}
+    }
 }
 

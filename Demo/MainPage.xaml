@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Local:ContentPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Local="clr-namespace:Demo.Cases" x:Class="Demo.MainPage" xmlns:Wapps="clr-namespace:Wapps.Forms.Controls;assembly=Wapps.Forms">
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Wapps:WLabel x:Name="L" Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+    </StackLayout>
+</Local:ContentPageBase>

@@ -24,246 +24,243 @@ using Xamarin.Forms;
 
 namespace Wapps.Forms.Controls
 {
-	/// <summary>
-	/// The check box.
-	/// </summary>
-	public class WCheckBox : View
-	{
+    /// <summary>
+    /// The check box.
+    /// </summary>
+    public class WCheckBox : View
+    {
 
-		#region CheckedChanged Event
+        #region CheckedChanged Event
 
-		/// <summary>
-		/// The checked changed event.
-		/// </summary>
-		public event EventHandler<EventArgs<bool>> CheckedChanged;
+        /// <summary>
+        /// The checked changed event.
+        /// </summary>
+        public event EventHandler<EventArgs<bool>> CheckedChanged;
 
-		static void OnCheckedPropertyChanged(BindableObject bindable, bool oldvalue, bool newvalue)
-		{
-			var checkBox = (WCheckBox)bindable;
-			checkBox.Checked = newvalue;
-		}
+        static void OnCheckedPropertyChanged(BindableObject bindable, bool oldvalue, bool newvalue)
+        {
+            var checkBox = (WCheckBox)bindable;
+            checkBox.Checked = newvalue;
+        }
 
-		#endregion
+        #endregion
 
-		#region Checked Property
+        #region Checked Property
 
-		public static readonly BindableProperty CheckedProperty = BindableProperty.Create<WCheckBox, bool>(p => p.Checked, false, BindingMode.TwoWay, propertyChanged: OnCheckedPropertyChanged);
-		public bool Checked
-		{
-			get
-			{
-				return this.GetValue<bool>(CheckedProperty);
-			}
+        public static readonly BindableProperty CheckedProperty = BindableProperty.Create("Checked", typeof(bool), typeof(bool), false);
+        public bool Checked
+        {
+            get { return this.GetValue<bool>(CheckedProperty); }
+            set
+            {
+                if (this.Checked != value)
+                {
+                    this.SetValue(CheckedProperty, value);
+                    this.CheckedChanged.Invoke(this, value);
+                }
+            }
+        }
 
-			set
-			{
-				if (this.Checked != value) {
-					this.SetValue(CheckedProperty, value);
-					this.CheckedChanged.Invoke(this, value);
-				}
-			}
-		}
+        #endregion
 
-		#endregion
+        #region CheckedImage Property
 
-		#region CheckedImage Property
+        public static readonly BindableProperty CheckedImageProperty = BindableProperty.Create("CheckedImage", typeof(string), typeof(string), "");
+        /// <summary>
+        /// Gets or sets a value indicating the image checked.
+        /// </summary>
+        /// <value>The checked image.</value>
+        /// <remarks>
+        /// Overwrites the default image property if set when checkbox is checked.
+        /// </remarks>
+        public string CheckedImage
+        {
+            get { return this.GetValue<string>(CheckedImageProperty); }
+            set { this.SetValue(CheckedImageProperty, value); }
+        }
 
-		public static readonly BindableProperty CheckedImageProperty = BindableProperty.Create<WCheckBox, string>(p => p.CheckedImage, string.Empty, BindingMode.TwoWay);
-		/// <summary>
-		/// Gets or sets a value indicating the image checked.
-		/// </summary>
-		/// <value>The checked image.</value>
-		/// <remarks>
-		/// Overwrites the default image property if set when checkbox is checked.
-		/// </remarks>
-		public string CheckedImage
-		{
-			get { return this.GetValue<string>(CheckedImageProperty); }
-			set { this.SetValue(CheckedImageProperty, value); }
-		}
+        #endregion
 
-		#endregion
+        #region UncheckedImage Property
 
-		#region UncheckedImage Property
+        public static readonly BindableProperty UncheckedImageProperty = BindableProperty.Create("UncheckedImage", typeof(string), typeof(string), "");
+        /// <summary>
+        /// Gets or sets a value indicating the image unchecked.
+        /// </summary>
+        /// <value>The unchecked image.</value>
+        /// <remarks>
+        /// Overwrites the default image property if set when checkbox is unchecked.
+        /// </remarks>
+        public string UncheckedImage
+        {
+            get
+            {
+                return this.GetValue<string>(UncheckedImageProperty);
+            }
 
-		public static readonly BindableProperty UncheckedImageProperty = BindableProperty.Create<WCheckBox, string>(p => p.UncheckedImage, string.Empty, BindingMode.TwoWay);
-		/// <summary>
-		/// Gets or sets a value indicating the image unchecked.
-		/// </summary>
-		/// <value>The unchecked image.</value>
-		/// <remarks>
-		/// Overwrites the default image property if set when checkbox is unchecked.
-		/// </remarks>
-		public string UncheckedImage
-		{
-			get
-			{
-				return this.GetValue<string>(UncheckedImageProperty);
-			}
+            set
+            {
+                this.SetValue(UncheckedImageProperty, value);
+            }
+        }
 
-			set
-			{
-				this.SetValue(UncheckedImageProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region CheckedText Property
 
-		#region CheckedText Property
+        public static readonly BindableProperty CheckedTextProperty = BindableProperty.Create("CheckedText", typeof(string), typeof(string), "");
+        /// <summary>
+        /// Gets or sets a value indicating the checked text.
+        /// </summary>
+        /// <value>The checked state.</value>
+        /// <remarks>
+        /// Overwrites the default text property if set when checkbox is checked.
+        /// </remarks>
+        public string CheckedText
+        {
+            get
+            {
+                return this.GetValue<string>(CheckedTextProperty);
+            }
 
-		public static readonly BindableProperty CheckedTextProperty = BindableProperty.Create<WCheckBox, string>(p => p.CheckedText, string.Empty, BindingMode.TwoWay);
-		/// <summary>
-		/// Gets or sets a value indicating the checked text.
-		/// </summary>
-		/// <value>The checked state.</value>
-		/// <remarks>
-		/// Overwrites the default text property if set when checkbox is checked.
-		/// </remarks>
-		public string CheckedText
-		{
-			get
-			{
-				return this.GetValue<string>(CheckedTextProperty);
-			}
+            set
+            {
+                this.SetValue(CheckedTextProperty, value);
+            }
+        }
 
-			set
-			{
-				this.SetValue(CheckedTextProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region UncheckedText Property
 
-		#region UncheckedText Property
+        public static readonly BindableProperty UncheckedTextProperty = BindableProperty.Create("UncheckedText", typeof(string), typeof(string), "");
+        /// <summary>
+        /// Gets or sets a value indicating whether the control is checked.
+        /// </summary>
+        /// <value>The checked state.</value>
+        /// <remarks>
+        /// Overwrites the default text property if set when checkbox is checked.
+        /// </remarks>
+        public string UncheckedText
+        {
+            get
+            {
+                return this.GetValue<string>(UncheckedTextProperty);
+            }
 
-		public static readonly BindableProperty UncheckedTextProperty = BindableProperty.Create<WCheckBox, string>(p => p.UncheckedText, string.Empty);
-		/// <summary>
-		/// Gets or sets a value indicating whether the control is checked.
-		/// </summary>
-		/// <value>The checked state.</value>
-		/// <remarks>
-		/// Overwrites the default text property if set when checkbox is checked.
-		/// </remarks>
-		public string UncheckedText
-		{
-			get
-			{
-				return this.GetValue<string>(UncheckedTextProperty);
-			}
+            set
+            {
+                this.SetValue(UncheckedTextProperty, value);
+            }
+        }
 
-			set
-			{
-				this.SetValue(UncheckedTextProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region DefaultText Property
 
-		#region DefaultText Property
+        public static readonly BindableProperty DefaultTextProperty = BindableProperty.Create("DefaultText", typeof(string), typeof(string), "");
 
-		public static readonly BindableProperty DefaultTextProperty = BindableProperty.Create<WCheckBox, string>(p => p.Text, string.Empty);
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        public string DefaultText
+        {
+            get
+            {
+                return this.GetValue<string>(DefaultTextProperty);
+            }
 
-		/// <summary>
-		/// Gets or sets the text.
-		/// </summary>
-		public string DefaultText
-		{
-			get
-			{
-				return this.GetValue<string>(DefaultTextProperty);
-			}
+            set
+            {
+                this.SetValue(DefaultTextProperty, value);
+            }
+        }
 
-			set
-			{
-				this.SetValue(DefaultTextProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region TextColor Property
 
-		#region TextColor Property
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create("UncheckedImage", typeof(string), typeof(Color), Color.Default);
+        /// <summary>
+        /// Gets or sets the color of the text.
+        /// </summary>
+        /// <value>The color of the text.</value>
+        public Color TextColor
+        {
+            get
+            {
+                return this.GetValue<Color>(TextColorProperty);
+            }
 
-		public static readonly BindableProperty TextColorProperty = BindableProperty.Create<WCheckBox, Color>(p => p.TextColor, Color.Default);
-		/// <summary>
-		/// Gets or sets the color of the text.
-		/// </summary>
-		/// <value>The color of the text.</value>
-		public Color TextColor
-		{
-			get
-			{
-				return this.GetValue<Color>(TextColorProperty);
-			}
+            set
+            {
+                this.SetValue(TextColorProperty, value);
+            }
+        }
 
-			set
-			{
-				this.SetValue(TextColorProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region FontSize Property
 
-		#region FontSize Property
+        public static readonly BindableProperty FontSizeProperty = BindableProperty.Create("FontSize", typeof(double), typeof(double), 15);
 
-		public static readonly BindableProperty FontSizeProperty = BindableProperty.Create<WCheckBox, double>(p => p.FontSize, -1);
+        /// <summary>
+        /// Gets or sets the size of the font.
+        /// </summary>
+        /// <value>The size of the font.</value>
+        public double FontSize
+        {
+            get
+            {
+                return (double)GetValue(FontSizeProperty);
+            }
+            set
+            {
+                SetValue(FontSizeProperty, value);
+            }
+        }
 
-		/// <summary>
-		/// Gets or sets the size of the font.
-		/// </summary>
-		/// <value>The size of the font.</value>
-		public double FontSize
-		{
-			get
-			{
-				return (double) GetValue(FontSizeProperty);
-			}
-			set
-			{
-				SetValue(FontSizeProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region FontName Property
 
-		#region FontName Property
+        public static readonly BindableProperty FontNameProperty = BindableProperty.Create("FontName", typeof(string), typeof(string), "");
 
-		public static readonly BindableProperty FontNameProperty = BindableProperty.Create<WCheckBox, string>(p => p.FontName, string.Empty);
+        /// <summary>
+        /// Gets or sets the name of the font.
+        /// </summary>
+        /// <value>The name of the font.</value>
+        public string FontName
+        {
+            get
+            {
+                return (string)GetValue(FontNameProperty);
+            }
+            set
+            {
+                SetValue(FontNameProperty, value);
+            }
+        }
 
-		/// <summary>
-		/// Gets or sets the name of the font.
-		/// </summary>
-		/// <value>The name of the font.</value>
-		public string FontName
-		{
-			get
-			{
-				return (string) GetValue(FontNameProperty);
-			}
-			set
-			{
-				SetValue(FontNameProperty, value);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region Text Property
 
-		#region Text Property
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <value>The text.</value>
+        public string Text
+        {
+            get
+            {
+                return this.Checked
+                    ? (string.IsNullOrEmpty(this.CheckedText) ? this.DefaultText : this.CheckedText)
+                        : (string.IsNullOrEmpty(this.UncheckedText) ? this.DefaultText : this.UncheckedText);
+            }
+        }
 
-		/// <summary>
-		/// Gets the text.
-		/// </summary>
-		/// <value>The text.</value>
-		public string Text
-		{
-			get
-			{
-				return this.Checked
-					? (string.IsNullOrEmpty(this.CheckedText) ? this.DefaultText : this.CheckedText)
-						: (string.IsNullOrEmpty(this.UncheckedText) ? this.DefaultText : this.UncheckedText);
-			}
-		}
+        #endregion
 
-		#endregion
-
-	}
+    }
 }

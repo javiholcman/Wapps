@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Wapps.ViewModels
+namespace Wapps.Core
 {
     public class Command<T> : Command
     {

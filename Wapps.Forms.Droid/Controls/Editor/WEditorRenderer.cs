@@ -1,12 +1,15 @@
 ﻿using System;
+using Android.Content;
 using Wapps.Forms.Controls;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
+[assembly: ExportRenderer(typeof(WEditor), typeof(Wapps.Forms.Droid.WEditorRenderer))]
 namespace Wapps.Forms.Droid
 {
 	public class WEditorRenderer : EditorRenderer
 	{
-		public WEditorRenderer()
+        public WEditorRenderer(Context ctx) : base(ctx)
 		{
 		}
 
@@ -31,8 +34,5 @@ namespace Wapps.Forms.Droid
 				this.Control.Hint = element.Placeholder;
 			}
 		}
-
 	}
-
 }
-

@@ -31,6 +31,11 @@ namespace Wapps.Forms.IOS.Controls
                 SetSelectionEnabled(view);
                 SetScrollEnabled(view);
                 view.ScrollToTopDelegate = ScrollToTop;
+                Control.TableFooterView = new UIView();
+                Control.SectionHeaderHeight = UIKit.UITableView.AutomaticDimension;
+                Control.SectionFooterHeight = UIKit.UITableView.AutomaticDimension;
+                Control.EstimatedSectionHeaderHeight = 0;
+                Control.EstimatedSectionFooterHeight = 0;
             }
 
             if (e.OldElement != null)

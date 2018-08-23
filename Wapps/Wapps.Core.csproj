@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Wapps.Forms\Controls\CrossImage.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WCheckCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WDatePickerCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WEntryCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WFieldCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WMultiFieldCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WSwitchCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Default\WADatePickerCell.xaml.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Default\WAEntryCell.xaml.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Default\WAPickerCell.xaml.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Default\WASwitchCell.xaml.cs" />
+    <Compile Remove="Wapps.Forms\Controls\ViewCellModel.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WButton.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WCheckbox.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WDatePicker.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WEditor.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WEntry.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WLabel.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WListView.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WPicker.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WStackLayout.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WTableView.cs" />
+    <Compile Remove="Wapps.Forms\Controls\WViewCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WPickerCell.cs" />
+    <Compile Remove="Wapps.Forms\Controls\Form\Base\WRadioCell.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Wapps.Forms\Controls\Form\Default\WADatePickerCell.xaml" />
+    <None Remove="Wapps.Forms\Controls\Form\Default\WAEntryCell.xaml" />
+    <None Remove="Wapps.Forms\Controls\Form\Default\WAPickerCell.xaml" />
+    <None Remove="Wapps.Forms\Controls\Form\Default\WASwitchCell.xaml" />
+    <None Remove="Wapps.Forms\obj\Wapps.Forms.csproj.nuget.cache" />
+    <None Remove="Wapps.Forms\obj\Wapps.Forms.csproj.nuget.g.props" />
+    <None Remove="Wapps.Forms\obj\Wapps.Forms.csproj.nuget.g.targets" />
+    <None Remove="Wapps.Forms\obj\project.assets.json" />
+  </ItemGroup>
+</Project>

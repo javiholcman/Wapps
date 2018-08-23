@@ -9,13 +9,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(WTableView), typeof(WTableViewRenderer))]
-//[assembly: ExportRenderer(typeof(TextCell), typeof(WTextCellRenderer))]
 
 namespace Wapps.Forms.Controls.Droid
 {
     public class WTableViewRenderer : TableViewRenderer
     {
-        public WTableViewRenderer()
+        public WTableViewRenderer(Context context) : base(context)
         {
         }
 
@@ -69,7 +68,7 @@ namespace Wapps.Forms.Controls.Droid
             else
             {
                 Control.Divider = null;
-                Control.DividerHeight = -5;
+                Control.DividerHeight = 0;
             }
         }
 
