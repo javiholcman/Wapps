@@ -31,7 +31,7 @@ namespace Wapps.Forms.ViewModels
 
                 FUtils.InvokeOnMainThread(100, () =>
                 {
-                    ViewModel.InvokeLoaded();
+                    ViewModel?.InvokeLoaded();
                 });
             }
         }

@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata minClientVersion="2.8.3">
 		<id>Wapps</id>
-		<version>0.2.13</version>
+		<version>0.2.15</version>
 		<title> Wapps.Core - Utils for Xamarin Net Standard</title>
 		<authors>Javier Holcman</authors>
 		<owners>Javier Holcman</owners>
@@ -16,8 +16,8 @@
 		<tags>xamarin, net standard, utils, android, xamarin.forms, ios, map, pin</tags>
 		<dependencies>
 			<group targetFramework="netstandard2.0">
-				<dependency id="Newtonsoft.Json" version="11.0.2" />				
-				<dependency id="sqlite-net-pcl" version="1.4.118" />
+				<dependency id="Newtonsoft.Json" version="12.0.2" />				
+				<dependency id="sqlite-net-pcl" version="1.5.231" />
 			</group>
 		</dependencies>
 	</metadata>

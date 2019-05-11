@@ -1,7 +1,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata minClientVersion="2.8.3">
 		<id>Wapps.Forms</id>
-		<version>0.2.13</version>
+		<version>0.2.15</version>
 		<title>Wapps.Forms - Extension for Xamarin.Forms</title>
 		<authors>Javier Holcman</authors>
 		<owners>Javier Holcman</owners>
@@ -14,17 +14,17 @@
 		<tags>xamarin, netstandard, netcore, plugin for xamarin.forms, android, xamarin.forms, ios, button, picker</tags>
 		<dependencies>
 			<group targetFramework="netstandard2.0">
-				<dependency id="Wapps" version="0.2.2" />
-				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
-				<dependency id="sqlite-net-pcl" version="1.4.118" />				
+				<dependency id="Wapps" version="0.2.15" />
+				<dependency id="Xamarin.Forms" version="3.6.0.344457" />
+				<dependency id="sqlite-net-pcl" version="1.5.231" />				
 			</group>
 			<group targetFramework="MonoAndroid">
-				<dependency id="Wapps" version="0.2.2" />
-				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
+				<dependency id="Wapps" version="0.2.15" />
+				<dependency id="Xamarin.Forms" version="3.6.0.344457" />
 			</group>
 			<group targetFramework="Xamarin.iOS10">
-				<dependency id="Wapps" version="0.2.2" />
-				<dependency id="Xamarin.Forms" version="3.0.0.482510" />
+				<dependency id="Wapps" version="0.2.15" />
+				<dependency id="Xamarin.Forms" version="3.6.0.344457" />
 			</group>
 		</dependencies>
 	</metadata>
